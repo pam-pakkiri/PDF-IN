@@ -9,7 +9,23 @@ import { PreviewModal } from "@/components/ui/preview-modal";
 import { ProcessingModal } from "@/components/ui/processing-modal";
 import { ResultModal } from "@/components/ui/result-modal";
 import { useToast } from "@/hooks/use-toast";
-import { FileTextIcon, MergeIcon, ImageIcon, EyeIcon, Combine, ScissorsIcon } from "lucide-react";
+import { 
+  FileTextIcon, 
+  MergeIcon, 
+  ImageIcon, 
+  EyeIcon, 
+  Combine, 
+  ScissorsIcon,
+  LockIcon,
+  UnlockIcon,
+  RotateCwIcon,
+  FilePlusIcon,
+  StampIcon,
+  FileSignatureIcon,
+  WandIcon,
+  ArrowRightToLineIcon,
+  ArrowLeftToLineIcon
+} from "lucide-react";
 
 export default function Home() {
   const { toast } = useToast();
@@ -253,52 +269,82 @@ export default function Home() {
   
   return (
     <div className="min-h-screen flex flex-col">
-      {/* Header */}
-      <header className="bg-white shadow-sm">
+      {/* Modern Header with glass effect */}
+      <header className="bg-white bg-opacity-80 backdrop-blur-sm sticky top-0 z-50 shadow-sm border-b border-neutral-100">
         <div className="container mx-auto px-4 py-4 flex justify-between items-center">
-          <div className="flex items-center space-x-2">
-            <span className="material-icons text-primary text-3xl">description</span>
-            <h1 className="text-xl md:text-2xl font-medium text-neutral-700">PDF Tools</h1>
+          <div className="flex items-center space-x-3">
+            <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-primary to-accent flex items-center justify-center text-white">
+              <span className="material-icons">description</span>
+            </div>
+            <h1 className="text-xl md:text-2xl font-bold gradient-text">PDF Tools</h1>
           </div>
           
           <nav className="hidden md:block">
-            <ul className="flex space-x-6">
-              <li><a href="#" className="text-neutral-500 hover:text-primary transition-colors">Home</a></li>
-              <li><a href="#" className="text-neutral-500 hover:text-primary transition-colors">Tools</a></li>
-              <li><a href="#" className="text-neutral-500 hover:text-primary transition-colors">Help</a></li>
+            <ul className="flex space-x-8 items-center">
+              <li>
+                <a href="#" className="text-neutral-700 font-medium hover:text-primary transition-colors">
+                  Home
+                </a>
+              </li>
+              <li>
+                <a href="#" className="text-neutral-600 hover:text-primary transition-colors">
+                  Tools
+                </a>
+              </li>
+              <li>
+                <a href="#" className="text-neutral-600 hover:text-primary transition-colors">
+                  Help
+                </a>
+              </li>
+              <li>
+                <a href="#" className="btn-gradient px-4 py-2 rounded-full text-sm font-medium flex items-center">
+                  <span className="material-icons text-sm mr-1">lightbulb</span>
+                  Pro Features
+                </a>
+              </li>
             </ul>
           </nav>
           
-          <button className="md:hidden text-neutral-500">
+          <button className="md:hidden w-10 h-10 rounded-full hover:bg-neutral-100 flex items-center justify-center text-neutral-600">
             <span className="material-icons">menu</span>
           </button>
         </div>
       </header>
 
-      <main className="container mx-auto px-4 py-8 flex-1">
-        {/* Hero */}
-        <section className="text-center mb-8 md:mb-12">
-          <h2 className="text-2xl md:text-3xl font-medium text-neutral-700 mb-3">All-in-one PDF Tools</h2>
-          <p className="text-neutral-500 max-w-2xl mx-auto">Upload your PDF files and transform them using our simple yet powerful tools. Extract text, merge files, convert to images, and more.</p>
+      <main className="container mx-auto px-4 py-12 flex-1">
+        {/* Hero section with gradient text */}
+        <section className="text-center mb-12 md:mb-16">
+          <h2 className="text-3xl md:text-4xl font-bold mb-4">
+            <span className="gradient-text">All-in-one PDF Tools</span>
+          </h2>
+          <p className="text-neutral-600 max-w-2xl mx-auto text-lg">
+            Upload your PDF files and transform them using our powerful tools. 
+            Extract text, merge files, convert to images, and much more.
+          </p>
         </section>
 
         {/* File Upload Area */}
         <section className="mb-12 max-w-3xl mx-auto">
-          <FileUpload 
-            onFileUpload={handleFileUpload} 
-            isUploading={uploadMutation.isPending} 
-            uploadProgress={uploadMutation.isPending ? 50 : 0}
-          />
+          <div className="glass-card p-1">
+            <FileUpload 
+              onFileUpload={handleFileUpload} 
+              isUploading={uploadMutation.isPending} 
+              uploadProgress={uploadMutation.isPending ? 50 : 0}
+            />
+          </div>
         </section>
 
-        {/* Uploaded Files List */}
+        {/* Uploaded Files List with improved styling */}
         {files.length > 0 && (
-          <section className="mb-12 max-w-3xl mx-auto">
-            <h3 className="text-xl font-medium text-neutral-700 mb-4">Uploaded Files</h3>
+          <section className="mb-16 max-w-3xl mx-auto">
+            <div className="flex items-center justify-between mb-4">
+              <h3 className="text-xl font-semibold text-neutral-800">Your Files</h3>
+              <span className="tag tag-primary">{files.length} file{files.length !== 1 ? 's' : ''}</span>
+            </div>
             
-            <div className="bg-white rounded-md shadow-md divide-y divide-neutral-100">
+            <div className="bg-white rounded-xl shadow-sm overflow-hidden divide-y divide-neutral-100 border border-neutral-100">
               {files.map(file => (
-                <div key={file.id} className="p-4 flex items-center justify-between">
+                <div key={file.id} className="p-4 hover:bg-neutral-50 transition-colors flex items-center justify-between">
                   <div className="flex items-center">
                     <input
                       type="checkbox"
@@ -306,24 +352,28 @@ export default function Home() {
                       onChange={() => handleSelectFile(file)}
                       className="mr-3 h-4 w-4 rounded border-gray-300 text-primary focus:ring-primary"
                     />
-                    <span className="material-icons text-primary mr-3">picture_as_pdf</span>
+                    <div className="flex items-center justify-center w-10 h-10 rounded-lg bg-primary/10 text-primary mr-3">
+                      <span className="material-icons">picture_as_pdf</span>
+                    </div>
                     <div>
-                      <h4 className="text-sm font-medium text-neutral-700">{file.originalFilename}</h4>
-                      <p className="text-xs text-neutral-400">{formatFileSize(file.filesize)}</p>
+                      <h4 className="text-sm font-medium text-neutral-800">{file.originalFilename}</h4>
+                      <p className="text-xs text-neutral-500">{formatFileSize(file.filesize)}</p>
                     </div>
                   </div>
                   <div className="flex space-x-2">
                     <button 
-                      className="text-neutral-400 hover:text-neutral-600"
+                      className="p-2 rounded-full hover:bg-primary/10 text-neutral-500 hover:text-primary transition-colors"
                       onClick={() => handlePreviewFile(file)}
+                      title="Preview"
                     >
-                      <span className="material-icons">visibility</span>
+                      <span className="material-icons text-sm">visibility</span>
                     </button>
                     <button 
-                      className="text-neutral-400 hover:text-error"
+                      className="p-2 rounded-full hover:bg-destructive/10 text-neutral-500 hover:text-destructive transition-colors"
                       onClick={() => handleDeleteFile(file.id)}
+                      title="Delete"
                     >
-                      <span className="material-icons">delete</span>
+                      <span className="material-icons text-sm">delete</span>
                     </button>
                   </div>
                 </div>
@@ -332,80 +382,257 @@ export default function Home() {
           </section>
         )}
 
-        {/* PDF Tools */}
-        <section>
-          <h3 className="text-xl font-medium text-neutral-700 mb-6">PDF Tools</h3>
+        {/* PDF Tools with categories */}
+        <section className="mb-10">
+          <div className="flex flex-col md:flex-row md:items-center justify-between mb-8">
+            <div>
+              <h3 className="text-2xl font-bold text-neutral-800 mb-2">PDF Tools</h3>
+              <p className="text-neutral-600">Select the tools you need to transform your documents</p>
+            </div>
+            
+            {selectedFiles.length > 0 && (
+              <div className="mt-4 md:mt-0 bg-neutral-100 px-4 py-2 rounded-full text-sm">
+                <span className="font-medium">{selectedFiles.length} file{selectedFiles.length !== 1 ? 's' : ''} selected</span>
+              </div>
+            )}
+          </div>
           
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            <ToolCard
-              title="Extract Text"
-              description="Extract all text content from your PDF files and save as TXT format."
-              icon={<FileTextIcon className="text-primary" />}
-              onClick={handleExtractText}
-              disabled={selectedFiles.length === 0}
-            />
+          {/* Essential Tools */}
+          <div className="mb-10">
+            <h4 className="text-lg font-semibold text-neutral-700 mb-4 flex items-center">
+              <span className="material-icons mr-2 text-primary">star</span>
+              Essential Tools
+            </h4>
             
-            <ToolCard
-              title="Merge PDFs"
-              description="Combine multiple PDF files into a single document. Rearrange as needed."
-              icon={<MergeIcon className="text-primary" />}
-              onClick={handleMergePdfs}
-              disabled={selectedFiles.length < 2}
-            />
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+              <ToolCard
+                title="Extract Text"
+                description="Extract all text content from your PDF files and save as TXT format."
+                icon={<FileTextIcon />}
+                onClick={handleExtractText}
+                disabled={selectedFiles.length === 0}
+                category="Content"
+                featured={true}
+              />
+              
+              <ToolCard
+                title="Merge PDFs"
+                description="Combine multiple PDF files into a single document. Maintain original formatting."
+                icon={<MergeIcon />}
+                onClick={handleMergePdfs}
+                disabled={selectedFiles.length < 2}
+                category="Organization"
+                featured={true}
+              />
+              
+              <ToolCard
+                title="Convert to Images"
+                description="Convert PDF pages into high-quality JPG or PNG images for sharing or editing."
+                icon={<ImageIcon />}
+                onClick={handleConvertToImages}
+                disabled={selectedFiles.length !== 1}
+                category="Conversion"
+                featured={true}
+              />
+            </div>
+          </div>
+          
+          {/* Editing Tools */}
+          <div className="mb-10">
+            <h4 className="text-lg font-semibold text-neutral-700 mb-4 flex items-center">
+              <span className="material-icons mr-2 text-primary">edit</span>
+              Editing Tools
+            </h4>
             
-            <ToolCard
-              title="Convert to Images"
-              description="Convert PDF pages into high-quality JPG or PNG images."
-              icon={<ImageIcon className="text-primary" />}
-              onClick={handleConvertToImages}
-              disabled={selectedFiles.length !== 1}
-            />
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+              <ToolCard
+                title="Split PDF"
+                description="Divide your PDF into multiple files by pages or page ranges."
+                icon={<ScissorsIcon />}
+                onClick={() => {}}
+                disabled={true}
+                category="Organization"
+              />
+              
+              <ToolCard
+                title="Rotate Pages"
+                description="Rotate pages to the correct orientation. Fix upside-down or sideways pages."
+                icon={<RotateCwIcon />}
+                onClick={() => {}}
+                disabled={true}
+                category="Editing"
+              />
+              
+              <ToolCard
+                title="Add Page Numbers"
+                description="Automatically add page numbers to the top or bottom of each page."
+                icon={<FilePlusIcon />}
+                onClick={() => {}}
+                disabled={true}
+                category="Editing"
+              />
+            </div>
+          </div>
+          
+          {/* Security Tools */}
+          <div className="mb-10">
+            <h4 className="text-lg font-semibold text-neutral-700 mb-4 flex items-center">
+              <span className="material-icons mr-2 text-primary">security</span>
+              Security Tools
+            </h4>
             
-            <ToolCard
-              title="View PDF"
-              description="Open and view PDF files directly in your browser with our viewer."
-              icon={<EyeIcon className="text-primary" />}
-              onClick={() => selectedFiles.length === 1 && handlePreviewFile(selectedFiles[0])}
-              disabled={selectedFiles.length !== 1}
-            />
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+              <ToolCard
+                title="Protect PDF"
+                description="Add password protection to your PDF to restrict access to sensitive information."
+                icon={<LockIcon />}
+                onClick={() => {}}
+                disabled={true}
+                category="Security"
+              />
+              
+              <ToolCard
+                title="Remove Password"
+                description="Remove password protection from your PDF files (requires original password)."
+                icon={<UnlockIcon />}
+                onClick={() => {}}
+                disabled={true}
+                category="Security"
+              />
+              
+              <ToolCard
+                title="Add Digital Signature"
+                description="Legally sign PDF documents with digital signatures for authentication."
+                icon={<FileSignatureIcon />}
+                onClick={() => {}}
+                disabled={true}
+                category="Security"
+              />
+            </div>
+          </div>
+          
+          {/* Optimization Tools */}
+          <div>
+            <h4 className="text-lg font-semibold text-neutral-700 mb-4 flex items-center">
+              <span className="material-icons mr-2 text-primary">tune</span>
+              Optimization Tools
+            </h4>
             
-            <ToolCard
-              title="Compress PDF"
-              description="Reduce the file size of your PDF documents while maintaining quality."
-              icon={<Combine className="text-primary" />}
-              onClick={() => {}}
-              disabled={true}
-            />
-            
-            <ToolCard
-              title="Split PDF"
-              description="Divide your PDF into multiple files by pages or page ranges."
-              icon={<ScissorsIcon className="text-primary" />}
-              onClick={() => {}}
-              disabled={true}
-            />
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+              <ToolCard
+                title="Compress PDF"
+                description="Reduce file size while maintaining quality. Great for email attachments."
+                icon={<Combine />}
+                onClick={() => {}}
+                disabled={true}
+                category="Optimization"
+              />
+              
+              <ToolCard
+                title="OCR Text Recognition"
+                description="Convert scanned documents to searchable, selectable text with OCR technology."
+                icon={<WandIcon />}
+                onClick={() => {}}
+                disabled={true}
+                category="Conversion"
+              />
+              
+              <ToolCard
+                title="PDF to Office"
+                description="Convert PDF files to editable Word, Excel, or PowerPoint formats."
+                icon={<ArrowRightToLineIcon />}
+                onClick={() => {}}
+                disabled={true}
+                category="Conversion"
+              />
+              
+              <ToolCard
+                title="Office to PDF"
+                description="Convert Word, Excel, or PowerPoint documents to PDF format."
+                icon={<ArrowLeftToLineIcon />}
+                onClick={() => {}}
+                disabled={true}
+                category="Conversion"
+              />
+              
+              <ToolCard
+                title="Add Watermark"
+                description="Add text or image watermarks to your PDF files for branding or protection."
+                icon={<StampIcon />}
+                onClick={() => {}}
+                disabled={true}
+                category="Editing"
+              />
+              
+              <ToolCard
+                title="View PDF"
+                description="Open and view PDF files directly in your browser with our viewer."
+                icon={<EyeIcon />}
+                onClick={() => selectedFiles.length === 1 && handlePreviewFile(selectedFiles[0])}
+                disabled={selectedFiles.length !== 1}
+                category="View"
+              />
+            </div>
           </div>
         </section>
       </main>
 
-      {/* Footer */}
+      {/* Modern Footer */}
       <footer className="bg-white border-t border-neutral-200 mt-12">
-        <div className="container mx-auto px-4 py-6">
-          <div className="flex flex-col md:flex-row justify-between items-center">
-            <div className="mb-4 md:mb-0">
-              <div className="flex items-center space-x-2">
-                <span className="material-icons text-primary text-xl">description</span>
-                <span className="text-neutral-700 font-medium">PDF Tools</span>
+        <div className="container mx-auto px-4 py-10">
+          <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
+            <div className="col-span-1 md:col-span-2">
+              <div className="flex items-center space-x-3 mb-4">
+                <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-primary to-accent flex items-center justify-center text-white">
+                  <span className="material-icons">description</span>
+                </div>
+                <h3 className="text-xl font-bold gradient-text">PDF Tools</h3>
               </div>
-              <p className="text-neutral-500 text-sm mt-1">© 2023 PDF Tools. All rights reserved.</p>
+              <p className="text-neutral-600 mb-4">
+                Professional PDF tools that make document workflows easier. Edit, convert, and manage your PDFs with ease.
+              </p>
+              <p className="text-neutral-500 text-sm">© {new Date().getFullYear()} PDF Tools. All rights reserved.</p>
             </div>
             
             <div>
-              <ul className="flex space-x-6">
-                <li><a href="#" className="text-neutral-500 hover:text-primary text-sm">Terms</a></li>
-                <li><a href="#" className="text-neutral-500 hover:text-primary text-sm">Privacy</a></li>
-                <li><a href="#" className="text-neutral-500 hover:text-primary text-sm">Help</a></li>
+              <h4 className="font-semibold text-neutral-800 mb-4">Quick Links</h4>
+              <ul className="space-y-2">
+                <li><a href="#" className="text-neutral-600 hover:text-primary transition-colors">Home</a></li>
+                <li><a href="#" className="text-neutral-600 hover:text-primary transition-colors">Features</a></li>
+                <li><a href="#" className="text-neutral-600 hover:text-primary transition-colors">Pricing</a></li>
+                <li><a href="#" className="text-neutral-600 hover:text-primary transition-colors">Contact</a></li>
               </ul>
+            </div>
+            
+            <div>
+              <h4 className="font-semibold text-neutral-800 mb-4">Legal</h4>
+              <ul className="space-y-2">
+                <li><a href="#" className="text-neutral-600 hover:text-primary transition-colors">Terms of Service</a></li>
+                <li><a href="#" className="text-neutral-600 hover:text-primary transition-colors">Privacy Policy</a></li>
+                <li><a href="#" className="text-neutral-600 hover:text-primary transition-colors">Cookies</a></li>
+                <li><a href="#" className="text-neutral-600 hover:text-primary transition-colors">Licenses</a></li>
+              </ul>
+            </div>
+          </div>
+          
+          <div className="border-t border-neutral-200 mt-8 pt-8 flex flex-col md:flex-row justify-between items-center">
+            <p className="text-neutral-500 text-sm mb-4 md:mb-0">
+              Built with modern technologies for optimal performance.
+            </p>
+            
+            <div className="flex space-x-4">
+              <a href="#" className="w-8 h-8 rounded-full bg-neutral-100 flex items-center justify-center text-neutral-600 hover:bg-primary hover:text-white transition-colors">
+                <span className="material-icons text-sm">facebook</span>
+              </a>
+              <a href="#" className="w-8 h-8 rounded-full bg-neutral-100 flex items-center justify-center text-neutral-600 hover:bg-primary hover:text-white transition-colors">
+                <span className="material-icons text-sm">discord</span>
+              </a>
+              <a href="#" className="w-8 h-8 rounded-full bg-neutral-100 flex items-center justify-center text-neutral-600 hover:bg-primary hover:text-white transition-colors">
+                <span className="material-icons text-sm">social_x</span>
+              </a>
+              <a href="#" className="w-8 h-8 rounded-full bg-neutral-100 flex items-center justify-center text-neutral-600 hover:bg-primary hover:text-white transition-colors">
+                <span className="material-icons text-sm">mail</span>
+              </a>
             </div>
           </div>
         </div>

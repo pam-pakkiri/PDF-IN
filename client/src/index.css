@@ -4,63 +4,84 @@
 
 @layer base {
   :root {
-    --background: 0 0% 100%;
-    --foreground: 20 14.3% 4.1%;
-    --muted: 60 4.8% 95.9%;
-    --muted-foreground: 25 5.3% 44.7%;
+    --background: 210 40% 98%;
+    --foreground: 222 47% 11%;
+    --muted: 210 40% 96%;
+    --muted-foreground: 215 25% 40%;
     --popover: 0 0% 100%;
-    --popover-foreground: 20 14.3% 4.1%;
+    --popover-foreground: 222 47% 11%;
     --card: 0 0% 100%;
-    --card-foreground: 20 14.3% 4.1%;
-    --border: 20 5.9% 90%;
-    --input: 20 5.9% 90%;
-    --primary: 207 90% 54%;
-    --primary-foreground: 211 100% 99%;
-    --secondary: 60 4.8% 95.9%;
-    --secondary-foreground: 24 9.8% 10%;
-    --accent: 60 4.8% 95.9%;
-    --accent-foreground: 24 9.8% 10%;
-    --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 60 9.1% 97.8%;
-    --ring: 20 14.3% 4.1%;
-    --radius: 0.5rem;
-    --chart-1: 207 90% 54%;
-    --chart-2: 221 83% 53%;
-    --chart-3: 245 58% 51%;
-    --chart-4: 262 83% 58%;
-    --chart-5: 292 91% 73%;
+    --card-foreground: 222 47% 11%;
+    --border: 214 32% 91%;
+    --input: 214 32% 91%;
+    
+    /* Primary color - Blue */
+    --primary: 209 100% 50%;
+    --primary-foreground: 0 0% 100%;
+    
+    /* Secondary color - Purple */
+    --secondary: 262 83% 58%;
+    --secondary-foreground: 0 0% 100%;
+    
+    /* Accent color - Cyan */
+    --accent: 189 94% 43%;
+    --accent-foreground: 0 0% 100%;
+    
+    /* Status colors */
+    --success: 160 84% 39%;
+    --warning: 37 92% 50%;
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 0 0% 100%;
+    
+    --ring: 209 100% 50%;
+    --radius: 0.75rem;
+    
+    /* Chart colors */
+    --chart-1: 209 100% 50%;
+    --chart-2: 262 83% 58%;
+    --chart-3: 189 94% 43%;
+    --chart-4: 330 81% 60%;
+    --chart-5: 50 98% 50%;
 
+    /* Sidebar variables */
     --sidebar-background: 0 0% 100%;
-    --sidebar-foreground: 222.2 84% 4.9%;
-    --sidebar-primary: 221.2 83.2% 53.3%;
-    --sidebar-primary-foreground: 210 40% 98%;
-    --sidebar-accent: 210 40% 96.1%;
-    --sidebar-accent-foreground: 222.2 47.4% 11.2%;
-    --sidebar-border: 214.3 31.8% 91.4%;
-    --sidebar-ring: 222.2 84% 4.9%;
+    --sidebar-foreground: 222 47% 11%;
+    --sidebar-primary: 209 100% 50%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 210 40% 96%;
+    --sidebar-accent-foreground: 222 47% 11%;
+    --sidebar-border: 214 32% 91%;
+    --sidebar-ring: 222 47% 11%;
   }
 
   .dark {
-    --background: 240 10% 3.9%;
-    --foreground: 0 0% 98%;
-    --muted: 240 3.7% 15.9%;
-    --muted-foreground: 240 5% 64.9%;
-    --popover: 240 10% 3.9%;
-    --popover-foreground: 0 0% 98%;
-    --card: 240 10% 3.9%;
-    --card-foreground: 0 0% 98%;
-    --border: 240 3.7% 15.9%;
-    --input: 240 3.7% 15.9%;
-    --primary: 207 90% 54%;
-    --primary-foreground: 211 100% 99%;
-    --secondary: 240 3.7% 15.9%;
-    --secondary-foreground: 0 0% 98%;
-    --accent: 240 3.7% 15.9%;
-    --accent-foreground: 0 0% 98%;
-    --destructive: 0 62.8% 30.6%;
-    --destructive-foreground: 0 0% 98%;
-    --ring: 240 4.9% 83.9%;
-    --radius: 0.5rem;
+    --background: 224 71% 4%;
+    --foreground: 210 40% 98%;
+    --muted: 215 28% 17%;
+    --muted-foreground: 217 19% 64%;
+    --popover: 224 71% 4%;
+    --popover-foreground: 210 40% 98%;
+    --card: 224 71% 4%;
+    --card-foreground: 210 40% 98%;
+    --border: 215 28% 17%;
+    --input: 215 28% 17%;
+    
+    /* Dark mode colors */
+    --primary: 209 100% 50%;
+    --primary-foreground: 0 0% 100%;
+    
+    --secondary: 262 83% 58%;
+    --secondary-foreground: 0 0% 100%;
+    
+    --accent: 189 94% 43%;
+    --accent-foreground: 0 0% 100%;
+    
+    --success: 160 84% 39%;
+    --warning: 37 92% 50%;
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 0 0% 100%;
+    
+    --ring: 209 100% 50%;
   }
 
   * {
@@ -80,8 +101,49 @@
   @apply border-primary bg-primary/5;
 }
 
+/* Modern styling utilities */
 @layer components {
   .container {
     @apply px-4 mx-auto;
+  }
+  
+  .glass-card {
+    @apply bg-white bg-opacity-70 backdrop-blur-md rounded-lg shadow-md border border-white border-opacity-20;
+  }
+  
+  .gradient-text {
+    @apply text-transparent bg-clip-text bg-gradient-to-r from-primary via-accent to-secondary;
+  }
+  
+  .btn-gradient {
+    @apply bg-gradient-to-r from-primary to-blue-700 text-white hover:shadow-md hover:shadow-primary/20 transition-all duration-300;
+  }
+  
+  .card-hover {
+    @apply transition-all duration-300 hover:-translate-y-1 hover:shadow-lg;
+  }
+  
+  .tag {
+    @apply inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium;
+  }
+  
+  .tag-primary {
+    @apply bg-primary/10 text-primary;
+  }
+  
+  .tag-secondary {
+    @apply bg-secondary/10 text-secondary;
+  }
+  
+  .tag-success {
+    @apply bg-success/10 text-success;
+  }
+  
+  .tag-warning {
+    @apply bg-warning/10 text-warning;
+  }
+  
+  .tag-error {
+    @apply bg-destructive/10 text-destructive;
   }
 }
