@@ -9,6 +9,7 @@ import { PreviewModal } from "@/components/ui/preview-modal";
 import { ProcessingModal } from "@/components/ui/processing-modal";
 import { ResultModal } from "@/components/ui/result-modal";
 import { useToast } from "@/hooks/use-toast";
+import { useLanguage } from "@/contexts/LanguageContext";
 import { 
   FileTextIcon, 
   MergeIcon, 
@@ -30,6 +31,7 @@ import {
 export default function Home() {
   const { toast } = useToast();
   const queryClient = useQueryClient();
+  const { t } = useLanguage();
   
   const [selectedFiles, setSelectedFiles] = useState<PdfFile[]>([]);
   const [previewFile, setPreviewFile] = useState<PdfFile | null>(null);
@@ -276,7 +278,7 @@ export default function Home() {
             <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-primary to-accent flex items-center justify-center text-white">
               <span className="material-icons">description</span>
             </div>
-            <h1 className="text-xl md:text-2xl font-bold gradient-text">PDF Tools</h1>
+            <h1 className="text-xl md:text-2xl font-bold gradient-text">{t('app.title')}</h1>
           </div>
           
           <nav className="hidden md:block">
@@ -315,11 +317,10 @@ export default function Home() {
         {/* Hero section with gradient text */}
         <section className="text-center mb-12 md:mb-16">
           <h2 className="text-3xl md:text-4xl font-bold mb-4">
-            <span className="gradient-text">All-in-one PDF Tools</span>
+            <span className="gradient-text">{t('app.hero.title')}</span>
           </h2>
           <p className="text-neutral-600 max-w-2xl mx-auto text-lg">
-            Upload your PDF files and transform them using our powerful tools. 
-            Extract text, merge files, convert to images, and much more.
+            {t('app.hero.description')}
           </p>
         </section>
 
@@ -338,7 +339,7 @@ export default function Home() {
         {files.length > 0 && (
           <section className="mb-16 max-w-3xl mx-auto">
             <div className="flex items-center justify-between mb-4">
-              <h3 className="text-xl font-semibold text-neutral-800">Your Files</h3>
+              <h3 className="text-xl font-semibold text-neutral-800">{t('app.files.title')}</h3>
               <span className="tag tag-primary">{files.length} file{files.length !== 1 ? 's' : ''}</span>
             </div>
             
@@ -386,8 +387,8 @@ export default function Home() {
         <section className="mb-10">
           <div className="flex flex-col md:flex-row md:items-center justify-between mb-8">
             <div>
-              <h3 className="text-2xl font-bold text-neutral-800 mb-2">PDF Tools</h3>
-              <p className="text-neutral-600">Select the tools you need to transform your documents</p>
+              <h3 className="text-2xl font-bold text-neutral-800 mb-2">{t('app.tools.title')}</h3>
+              <p className="text-neutral-600">{t('app.tools.description')}</p>
             </div>
             
             {selectedFiles.length > 0 && (
@@ -401,7 +402,7 @@ export default function Home() {
           <div className="mb-10">
             <h4 className="text-lg font-semibold text-neutral-700 mb-4 flex items-center">
               <span className="material-icons mr-2 text-primary">star</span>
-              Essential Tools
+              {t('category.essential')}
             </h4>
             
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
